@@ -35,14 +35,14 @@
 - examples of input and output:
     
 ```sh
-Welcome to Toy Robot. Please input your commands or type EXIT to exit.
+Welcome to Toy Robot. Please input your commands.
 place 1,2,North
 report
 Output: 1,2,NORTH
 ```
 
 ```sh
-Welcome to Toy Robot. Please input your commands or type EXIT to exit.
+Welcome to Toy Robot. Please input your commands.
 place 2,3,east
 move
 move
@@ -51,7 +51,7 @@ Output: 4,3,EAST
 ```
 
 ```sh
-Welcome to Toy Robot. Please input your commands or type EXIT to exit.
+Welcome to Toy Robot. Please input your commands.
 place 2,3,east
 left
 report
