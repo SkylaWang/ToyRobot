@@ -19,6 +19,7 @@
   REPORT will announce the X,Y and F of the robot. This can be in any form, but standard output is sufficient.
 
 ### Special rule:
+- Any command before first PLACE will be ignored.
 - Any command that would cause the robot to fall will be ignored. 
 - Commands are mannualy input. Ensure each line has one command.
 - Output will only display after excute REPORT command.
