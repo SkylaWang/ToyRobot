@@ -1,7 +1,7 @@
 ﻿using System;
-using ToyRobot.Model.Enum;
+using ToyRobotApp.Model.Enum;
 
-namespace ToyRobot.Server
+namespace ToyRobotApp
 {
     public static class Helper
     {
@@ -26,5 +26,7 @@ namespace ToyRobot.Server
             Enum.TryParse<Command>(command, out result);
             return result;
         }
+
+
     }
 }
