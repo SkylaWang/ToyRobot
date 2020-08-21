@@ -17,9 +17,6 @@ namespace ToyRobotApp.Server
                 Direction = Helper.PraseStringToEmun<Direction>(param[2])
             };
 
-            //if new robot fall from the table, then move it back.
-            CheckIsFallFromTable(result);
-
             return result;
         }
 
@@ -42,8 +39,7 @@ namespace ToyRobotApp.Server
                     break;
                 default: break;
             }
-            //if new robot fall from the table, then move it back.
-            CheckIsFallFromTable(robot);
+            
         }
 
         //LEFT command
@@ -100,16 +96,5 @@ namespace ToyRobotApp.Server
             builder.Append(robot.Direction.ToString("g").ToUpper());
             return builder.ToString();
         }
-
-        //Check if robot is moved or placed out of the rang of table
-        private void CheckIsFallFromTable(Robot robot)
-        {
-            if(robot.X > Constants.RANGE_X_MAX || robot.Y > Constants.RANGE_Y_MAX ||
-               robot.X < Constants.RANGE_X_MIN || robot.Y < Constants.RANGE_Y_MIN)
-            {
-                throw new Exception();
-            }
-        }
-
     }
 }

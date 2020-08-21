@@ -9,25 +9,22 @@ namespace ToyRobotApp
     {
         static void Main(string[] args)
         {
-           
-
             Robot robot = null;
-            bool exit = false;
 
-            Console.WriteLine("Welcome to Toy Robot. Please input your commands or type EXIT to exit.");
+            Console.WriteLine("Welcome to Toy Robot. Please input your commands.");
 
             do
             {
-                string command = Console.ReadLine();
-                exit = command.ToLower() == "exit";
+                //translate input  to command
+                Command command = PraseInputToCommand();
                 robot = ExecuteCommand(command, robot);
             }
-            while (!exit);
+            while (true);
         }
 
 
         //Translate command line to excute command
-        private static Robot ExecuteCommand(string commandLine, Robot robot)
+        private static Robot ExecuteCommand(Command command, Robot robot)
         {
             ICommandServer _commandServer = new CommandServer();
 
@@ -40,24 +37,25 @@ namespace ToyRobotApp
 
             try
             {
-                var cl = commandLine.Trim().Split(' ');
-                Command command = Helper.PraseStringToEmun<Command>(cl[0]);
-
-                switch (command)
+                switch (command.CommandType)
                 {
-                    case Command.Place:
-                        robot = _commandServer.Place(cl[1].Split(','));
+                    case CommandType.Place:
+                        robot = _commandServer.Place(command.Param);
+                        //Check if robot is placed out of the rang of table
+                        CheckIsFallFromTable(robot);
                         break;
-                    case Command.Left:
+                    case CommandType.Left:
                         _commandServer.Left(robot);
                         break;
-                    case Command.Move:
+                    case CommandType.Move:
                         _commandServer.Move(robot);
+                        //Check if robot is moved out of the rang of table
+                        CheckIsFallFromTable(robot);
                         break;
-                    case Command.Right:
+                    case CommandType.Right:
                         _commandServer.Right(robot);
                         break;
-                    case Command.Report:
+                    case CommandType.Report:
                         Console.WriteLine(_commandServer.Report(robot));
                         break;
                     default: break;
@@ -69,6 +67,41 @@ namespace ToyRobotApp
             {
                 //if catch any error, revert back.
                 return originRobot;
+            }
+        }
+
+        //translate input to command 
+        private static Command PraseInputToCommand()
+        {
+            try
+            {
+                Command command = new Command();
+                string commandLine = Console.ReadLine();
+                var cl = commandLine.Trim().Split(' ');
+
+                command.CommandType = Helper.PraseStringToEmun<CommandType>(cl[0]);
+
+                if (command.CommandType == CommandType.Place)
+                {
+                    command.Param = cl[1].Split(',');
+                }
+
+                return command;
+            }
+            catch
+            {
+                return new Command();
+            }
+        }
+
+
+        //Check if robot is moved or placed out of the rang of table
+        private static void CheckIsFallFromTable(Robot robot)
+        {
+            if (robot.X > Constants.RANGE_X_MAX || robot.Y > Constants.RANGE_Y_MAX ||
+               robot.X < Constants.RANGE_X_MIN || robot.Y < Constants.RANGE_Y_MIN)
+            {
+                throw new Exception();
             }
         }
     }

@@ -18,8 +18,6 @@ namespace ToyRobotUnitTest
             Assert.Equal(1, result.Y);
             Assert.Equal(Direction.North, result.Direction);
 
-            Assert.ThrowsAny<Exception>(()=>_server.Place(TestData.PlaceCommandOutOfBoundryParam));
-
             Assert.ThrowsAny<Exception>(() => _server.Place(TestData.PlaceCommandInValidParam));
         }
 
@@ -52,18 +50,6 @@ namespace ToyRobotUnitTest
             Assert.Equal(0, robot.X);
             Assert.Equal(1, robot.Y);
             Assert.Equal(Direction.West, robot.Direction);
-
-            robot = TestData.MoveEastBoundryRobot();
-            Assert.ThrowsAny<Exception>(() => _server.Move(robot));
-
-            robot = TestData.MoveNorthBoundryRobot();
-            Assert.ThrowsAny<Exception>(() => _server.Move(robot));
-
-            robot = TestData.MoveSouthBoundryRobot();
-            Assert.ThrowsAny<Exception>(() => _server.Move(robot));
-
-            robot = TestData.MoveWestBoundryRobot();
-            Assert.ThrowsAny<Exception>(() => _server.Move(robot));
         }
 
         [Fact]

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using Microsoft.VisualBasic;
+using ToyRobotApp.Model;
 using ToyRobotApp.Model.Enum;
 
 namespace ToyRobotApp

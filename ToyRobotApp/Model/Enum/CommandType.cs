@@ -1,7 +1,7 @@
 ﻿
 namespace ToyRobotApp.Model.Enum
 {
-    public enum Command
+    public enum CommandType
     {
         Place,
         Move,
