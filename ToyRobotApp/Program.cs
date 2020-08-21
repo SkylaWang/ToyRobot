@@ -41,7 +41,7 @@ namespace ToyRobotApp
             try
             {
                 var cl = commandLine.Trim().Split(' ');
-                Command command = Helper.PraseStringToCommand(cl[0]);
+                Command command = Helper.PraseStringToEmun<Command>(cl[0]);
 
                 switch (command)
                 {

@@ -14,7 +14,7 @@ namespace ToyRobotApp.Server
             {
                 X = Int32.Parse(param[0]),
                 Y = Int32.Parse(param[1]),
-                Direction = Helper.PraseStringToDirection(param[2])
+                Direction = Helper.PraseStringToEmun<Direction>(param[2])
             };
 
             //if new robot fall from the table, then move it back.

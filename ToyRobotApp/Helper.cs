@@ -1,32 +1,25 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using ToyRobotApp.Model.Enum;
 
 namespace ToyRobotApp
 {
     public static class Helper
     {
-        public static Direction PraseStringToDirection(string direction)
+        public static T PraseStringToEmun<T>(string command) where T:struct
         {
-            Direction result;
-
-            //format input string to capital letter in uppercase and rest in lowercase
-            direction = direction.Substring(0,1).ToUpper() + direction.Substring(1).ToLower();
-
-            Enum.TryParse<Direction>(direction, out result);
-            return result;
-        }
-
-        public static Command PraseStringToCommand(string command)
-        {
-            Command result;
+            //don't want numeric value be prase to Enum
+            Regex r = new Regex(@"^[0-9]+$");
+            if (r.IsMatch(command))
+            {
+                throw new Exception();
+            }
 
             //format input string to capital letter in uppercase and rest in lowercase
             command = command.Substring(0, 1).ToUpper() + command.Substring(1).ToLower();
 
-            Enum.TryParse<Command>(command, out result);
+            Enum.TryParse<T>(command, out T result);
             return result;
         }
-
-
     }
 }
