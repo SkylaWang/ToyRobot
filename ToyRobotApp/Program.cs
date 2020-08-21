@@ -28,7 +28,7 @@ namespace ToyRobotApp
         {
             ICommandServer _commandServer = new CommandServer();
 
-            Robot originRobot = robot == null ? null : new Robot()
+            Robot newRobot = robot == null ? null : new Robot()
             {
                 X = robot.X,
                 Y = robot.Y,
@@ -40,33 +40,33 @@ namespace ToyRobotApp
                 switch (command.CommandType)
                 {
                     case CommandType.Place:
-                        robot = _commandServer.Place(command.Param);
+                        newRobot = _commandServer.Place(command.Param);
                         //Check if robot is placed out of the rang of table
-                        CheckIsFallFromTable(robot);
+                        CheckIsFallFromTable(newRobot);
                         break;
                     case CommandType.Left:
-                        _commandServer.Left(robot);
+                        _commandServer.Left(newRobot);
                         break;
                     case CommandType.Move:
-                        _commandServer.Move(robot);
+                        _commandServer.Move(newRobot);
                         //Check if robot is moved out of the rang of table
-                        CheckIsFallFromTable(robot);
+                        CheckIsFallFromTable(newRobot);
                         break;
                     case CommandType.Right:
-                        _commandServer.Right(robot);
+                        _commandServer.Right(newRobot);
                         break;
                     case CommandType.Report:
-                        Console.WriteLine(_commandServer.Report(robot));
+                        Console.WriteLine(_commandServer.Report(newRobot));
                         break;
                     default: break;
                 }
 
-                return robot;
+                return newRobot;
             }
             catch
             {
                 //if catch any error, revert back.
-                return originRobot;
+                return robot;
             }
         }
 
